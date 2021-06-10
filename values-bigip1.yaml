@@ -17,7 +17,7 @@ args:
   # namespace:
   # namespace_label:
   pool_member_type: cluster
-  # Blindly trust BIG-IP's TLS certificate
+  # Trust default BIG-IP's self-signed TLS certificate
   insecure: true
   # Force using the SNAT pool
   override-as3-declaration: kube-system/bigip-snatpool
