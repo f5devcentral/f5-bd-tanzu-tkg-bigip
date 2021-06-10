@@ -1,0 +1,18 @@
+router-id 192.168.200.14
+!
+router bgp 64512
+ bgp graceful-restart restart-time 120
+ network 100.128.0.0/24
+ neighbor 10.244.1.114 remote-as 64512
+ neighbor 10.244.1.114 route-map snat out
+ neighbor 10.244.1.116 remote-as 64512
+ neighbor 10.244.1.116 route-map snat out
+ neighbor 10.244.1.118 remote-as 64512
+ neighbor 10.244.1.118 route-map snat out
+!
+ip prefix-list snat-range seq 5 permit 100.128.0.0/24
+!
+route-map snat permit 5
+ match ip address prefix-list snat-range
+ set ip next-hop 10.244.1.124 primary  
+

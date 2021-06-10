@@ -1,0 +1,7 @@
+kind: BGPPeer
+apiVersion: crd.projectcalico.org/v1
+metadata:
+  name: bigip2
+spec:
+  peerIP: 10.244.1.126
+  asNumber: 64512
