@@ -1,0 +1,32 @@
+bigip_login_secret: bigip1-login
+rbac:
+  create: true
+serviceAccount:
+  create: true
+  name: k8s-bigip1-ctlr
+# This namespace is where the Controller lives;
+namespace: kube-system
+args:
+  # See https://clouddocs.f5.com/containers/latest/userguide/config-parameters.html
+  # NOTE: helm has difficulty with values using `-`; `_` are used for naming
+  # and are replaced with `-` during rendering.
+  bigip_url: 192.168.200.14
+  bigip_partition: tkg
+  default_ingress_ip: 10.106.32.100
+  # Use the following settings if you want to restrict CIS to specific namespaces
+  # namespace:
+  # namespace_label:
+  pool_member_type: cluster
+  # Blindly trust BIG-IP's TLS certificate
+  insecure: true
+  # Force using the SNAT pool
+  override-as3-declaration: kube-system/bigip-snatpool
+  log-as3-response: true
+image:
+  # Use the tag to target a specific version of the Controller
+  user: f5networks
+  repo: k8s-bigip-ctlr
+  pullPolicy: Always
+resources: {}
+version: latest
+
